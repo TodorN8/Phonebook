@@ -1,0 +1,83 @@
+using System;
+     using System.IO;
+     using System.Collections;
+     using System.Collections.Generic;
+     class Phonebook{
+         static void Main(){
+
+        Hashtable table = new Hashtable();
+
+        while (true){
+            Console.WriteLine("Press 1 to add a contact");
+            Console.WriteLine("Press 2 to delete a contact");
+            Console.WriteLine("Press 3 to search for a contact");
+            Console.WriteLine("Press 4 to display all contacts");
+            Console.WriteLine("Press 5 to exit the program");
+
+            int usernum = Convert.ToInt32(Console.ReadLine());
+
+            switch (usernum){
+                case 1:
+                    Addnum(table);
+                break;
+
+                case 2:
+                    Deletenum(table);
+                break;
+
+                case 3:
+                    Searchnum(table);
+                break;
+
+                case 4:
+                    Printnum(table);
+                break;
+
+            default:
+            break;
+            }
+
+            if (usernum == 5)
+                break;
+        }
+    }
+
+         public static void Deletenum(Hashtable table){
+             Console.WriteLine("What contact do you want to delete?");
+             string name = Console.ReadLine();
+
+             if (!table.ContainsKey(name))
+                Console.WriteLine("A contact with this name does not exist.");
+            else
+                table.Remove(name);
+         }
+
+         public static void Addnum(Hashtable table){
+             Console.WriteLine("What contact do you want to add?");
+             string name = Console.ReadLine();
+
+             if (table.ContainsKey(name))
+                 Console.WriteLine("A contact with the same name already exists.");
+            else
+                Console.WriteLine("Write the phone number");
+
+             string phonenum = Console.ReadLine();
+             table.Add(name, phonenum);
+         }
+
+         public static void Searchnum(Hashtable table){
+             Console.WriteLine("Who do you want to call?");
+             string name = Console.ReadLine();
+
+             if (table.ContainsKey(name))
+                Console.WriteLine($"{name}'s number is {table[name]}");
+            else
+                Console.WriteLine($"{name} does not exist in the Phonebook.");
+         }
+
+         public static void Printnum(Hashtable table){
+             foreach(DictionaryEntry s in table){
+                 Console.WriteLine($"{s.Key} with {s.Value}");
+             }
+         }
+}
